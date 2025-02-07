@@ -1,0 +1,124 @@
+/* Reset de margens e paddings, e configuração de box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo para o corpo da página */
+body {
+    padding-top: 20px;
+    position: relative;
+    background-image: url('https://i.postimg.cc/QxPBRZMt/peakpx.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Garante que o corpo ocupe toda a altura da viewport */
+    overflow: hidden; /* Evita rolagem */
+}
+
+/* Imagem de fundo para telas grandes (4K) */
+@media (min-width: 2560px) {
+    body {
+        background-image: url('https://i.postimg.cc/your-4k-image.jpg');
+    }
+}
+
+/* Imagem de fundo para telas médias (1280x720) */
+@media (max-width: 1280px) {
+    body {
+        background-image: url('https://i.postimg.cc/k5TYPPj2/peakpx-7.jpg');
+    }
+}
+
+/* Imagem de fundo para telas pequenas (768px) */
+@media (max-width: 768px) {
+    body {
+        background-image: url('https://i.postimg.cc/Vs41S9QP/peakpx-3.jpg');
+    }
+}
+
+/* Estilo para o título "Conter" */
+#pageTitle {
+    font-size: 1rem;
+    color: white; /* Ajuste o tamanho conforme necessário */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    margin: 0; /* Remover margem */
+    padding: 0; /* Remover padding */
+}
+
+/* Estilo para o botão "+" */
+#addSubjectButton {
+    font-size: 1rem; /* Ajuste o tamanho conforme necessário */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0; /* Remover margem */
+}
+
+/* Estilo para o botão do timer */
+#timerButton {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    font-size: 24px;
+    background-color: #000000; /* Cor padrão do botão */
+    border: none; /* Remover borda padrão */
+    color: white; /* Cor do texto */
+    outline: none;
+    margin-top: 50px; /* Remover destaque nas bordas */
+}
+
+/* Estilo para o botão do timer quando em execução */
+#timerButton.running {
+    background-color: #ff0000; /* Cor do botão quando o temporizador está em execução */
+}
+
+/* Remover destaque nas bordas ao focar */
+#timerButton:focus,
+#resetButton:focus,
+#addSubjectButton:focus {
+    outline: none;
+    box-shadow: none; /* Remover sombra de foco */
+}
+
+/* Estilo para o botão de reiniciar */
+#resetButton {
+    margin-top: 20px;
+    background-color: #ffc107; /* Cor do botão de reiniciar */
+    border: none; /* Remover borda padrão */
+    color: white; /* Cor do texto */
+    outline: none; /* Remover destaque nas bordas */
+    transition: transform 0.1s ease; /* Adiciona uma transição suave */
+}
+
+#resetButton:active {
+    transform: scale(0.95); /* Efeito de pressionado */
+}
+
+/* Customizações adicionais para responsividade */
+@media (max-width: 768px) {
+    #timerButton {
+        width: 150px;
+        height: 150px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    #timerButton {
+        width: 100px;
+        height: 100px;
+        font-size: 16px;
+    }
+}
+
+/* Ajuste do alinhamento vertical do botão do timer */
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    height: 100vh; /* Ajusta a altura para ocupar a tela inteira */
+}
