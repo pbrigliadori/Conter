@@ -12,6 +12,13 @@
     <div class="container">
         <!-- Título "Conter" posicionado no topo esquerdo -->
         <h1 id="pageTitle">Conter</h1>
+        <!-- Alerta de sucesso -->
+        <div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert">
+            Tarefa salva com sucesso!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <!-- Botão "+" para adicionar novo assunto posicionado no topo direito -->
         <button id="addSubjectButton" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#subjectModal">+</button>
         <!-- Linha para o botão do timer -->
@@ -26,12 +33,12 @@
             </div>
         </div>
         <!-- Modal para adicionar novo assunto -->
-        <div class="modal fade" id="subjectModal" tabindex="-1" aria-labelledby="subjectModalLabel" aria-hidden="true">
+        <div class="modal fade dark-modal" id="subjectModal" tabindex="-1" aria-labelledby="subjectModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="subjectModalLabel">Novo Assunto</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="subjectModalLabel">Adicione a Tarefa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cl">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -39,11 +46,11 @@
                         <form id="subjectForm">
                             <div class="form-group">
                                 <!-- Campo de entrada para novo assunto -->
-                                <label for="subjectInput">Novo Assunto</label>
-                                <input type="text" class="form-control" id="subjectInput" placeholder="Digite o assunto">
+                                <label for="subjectInput">Nova Tarefa</label>
+                                <input type="text" class="form-control" id="subjectInput" placeholder="Digite a Tarefa">
                             </div>
                             <!-- Botão para adicionar novo assunto -->
-                            <button type="submit" class="btn btn-success">Adicionar Assunto</button>
+                            <button type="submit" class="btn btn-success" id="adc">Adicionar Tarefa</button>
                         </form>
                     </div>
                 </div>
@@ -60,10 +67,12 @@
         </div>
     </div>
     <!-- Scripts do Bootstrap -->
-    <<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Script para o timer -->
     <script src="scripts/timer.js"></script>
+    <!-- Script para as tarefas -->
+    <script src="scripts/tasks.js"></script>
 </body>
 </html>

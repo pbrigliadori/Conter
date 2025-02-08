@@ -14,7 +14,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh; /* Garante que o corpo ocupe toda a altura da viewport */
-    overflow: hidden; /* Evita rolagem */
+    /*overflow: hidden;  Evita rolagem */
 }
 
 /* Imagem de fundo para telas grandes (4K) */
@@ -68,7 +68,13 @@ body {
     border: none; /* Remover borda padrão */
     color: white; /* Cor do texto */
     outline: none;
-    margin-top: 50px; /* Remover destaque nas bordas */
+    margin-top: 10px; /* Espaçamento superior */
+    transition: transform 0.3s ease;
+
+}
+
+#timerButton:hover {
+    transform: scale(1.1); /* Efeito de hover */
 }
 
 /* Estilo para o botão do timer quando em execução */
@@ -121,4 +127,56 @@ body {
     justify-content: center;
     align-items: center; /* Centraliza o conteúdo verticalmente */
     height: 100vh; /* Ajusta a altura para ocupar a tela inteira */
+}
+
+/* Estilo para o modal específico */
+.dark-modal .modal-content {
+    background-color: #333333; /* Cor de fundo mais escura */
+    color: white; /* Cor do texto */
+}
+
+.dark-modal .modal-header, .dark-modal .modal-footer {
+    border-color: #444444; /* Cor da borda mais escura */
+}
+
+.dark-modal .modal-title {
+    color: white; /* Cor do título */
+}
+
+.dark-modal .modal-body {
+    color: white; /* Cor do texto no corpo do modal */
+}
+
+#subjectModalLabel {
+    color: wheat; /* Cor do título do modal */
+}
+
+#cl {
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    background-color: #ff0000;
+    border-radius: 5px;
+    position: relative;
+    top: 5px;
+    height: 40px;
+    outline: none;
+    transition: transform 0.3s ease;
+}
+
+#cl:hover {
+    transform: scale(1.1);
+}
+
+
+#cl span {
+    line-height: -1px; /* Ajuste a altura da linha do "X" */
+    font-size: 20px; /* Ajuste o tamanho da fonte do "X" */
+    position: relative;
+    top: -2px; /* Ajuste a posição superior do "X" */
+}
+
+#adc {
+    background-color: blue;
+    border: none;
+    outline: none;
 }
