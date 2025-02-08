@@ -24,6 +24,12 @@
         <!-- Linha para o botão do timer -->
         <div class="row justify-content-center align-items-center" style="height: 80vh;">
             <div class="col-12 text-center">
+                <!-- Área de seleção de tarefas -->
+                <div class="form-group"> 
+                    <select id="taskSelect" class="form-control d-inline-block w-auto">
+                        <option value="" disabled selected>Selecione uma tarefa</option>
+                    </select>
+                </div>
                 <!-- Botão do timer -->
                 <button id="timerButton" class="btn btn-primary btn-lg">INICIAR</button>
                 <!-- Botão de reiniciar -->
@@ -66,6 +72,8 @@
             </div>
         </div>
     </div>
+    <!-- Botão para apagar todas as tarefas -->
+    <button id="clearTasksButton" class="btn btn-danger">D</button>
     <!-- Scripts do Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

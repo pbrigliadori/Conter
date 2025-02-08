@@ -14,7 +14,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh; /* Garante que o corpo ocupe toda a altura da viewport */
-    /*overflow: hidden;  Evita rolagem */
+    overflow: hidden; /* Evita rolagem */
 }
 
 /* Imagem de fundo para telas grandes (4K) */
@@ -68,9 +68,8 @@ body {
     border: none; /* Remover borda padrão */
     color: white; /* Cor do texto */
     outline: none;
-    margin-top: 10px; /* Espaçamento superior */
+    margin-top: 10px; /* Espaçamento acima do botão */
     transition: transform 0.3s ease;
-
 }
 
 #timerButton:hover {
@@ -167,7 +166,6 @@ body {
     transform: scale(1.1);
 }
 
-
 #cl span {
     line-height: -1px; /* Ajuste a altura da linha do "X" */
     font-size: 20px; /* Ajuste o tamanho da fonte do "X" */
@@ -179,4 +177,40 @@ body {
     background-color: blue;
     border: none;
     outline: none;
+}
+
+/* Estilo para o campo de seleção de tarefas */
+#taskSelect {
+    width: 300px; /* Define a largura do campo de seleção */
+    margin: 0 auto; /* Centraliza o campo de seleção horizontalmente */
+    background-color: #333333;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    transition: all 0.3s ease; /* Adiciona uma transição suave */
+}
+
+/* Animação ao abrir o campo de seleção */
+#taskSelect:focus {
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho ao focar */
+}
+
+/* Estilo para o botão de apagar todas as tarefas */
+#clearTasksButton {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    border: none;
+    outline: none;
+    transition: transform 0.3s ease;
+}
+
+#clearTasksButton:hover {
+    transform: scale(1.1); /* Efeito de hover */
 }

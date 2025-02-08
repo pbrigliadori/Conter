@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const subjectList = document.getElementById('subjectList');
     const successAlert = document.getElementById('successAlert');
     const subjectModal = $('#subjectModal'); // Usando jQuery para manipular o modal
+    const taskSelect = document.getElementById('taskSelect'); // Seleção de tarefas
+    const clearTasksButton = document.getElementById('clearTasksButton'); // Botão para apagar todas as tarefas
 
     // Carregar tarefas salvas do localStorage
     loadTasks();
@@ -14,6 +16,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         addTask(subjectInput.value);
         subjectInput.value = '';
     });
+
+    // Adicionar evento de clique ao botão de apagar todas as tarefas
+    clearTasksButton.addEventListener('click', clearAllTasks);
 
     // Função para adicionar tarefa
     function addTask(task) {
@@ -34,8 +39,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
         subjectList.appendChild(li);
 
         saveTask(task);
+        addTaskToSelect(task); // Adiciona a tarefa à seleção de tarefas
         showSuccessAlert();
         subjectModal.modal('hide'); // Fechar o modal automaticamente
+    }
+
+    // Função para adicionar tarefa à seleção de tarefas
+    function addTaskToSelect(task) {
+        const option = document.createElement('option');
+        option.value = task;
+        option.textContent = task;
+        taskSelect.appendChild(option);
     }
 
     // Função para remover tarefa
@@ -43,6 +57,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const task = taskElement.textContent.replace('Remover', '').trim();
         taskElement.remove();
         deleteTask(task);
+        removeTaskFromSelect(task); // Remove a tarefa da seleção de tarefas
+    }
+
+    // Função para remover tarefa da seleção de tarefas
+    function removeTaskFromSelect(task) {
+        const options = taskSelect.options;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].value === task) {
+                taskSelect.remove(i);
+                break;
+            }
+        }
     }
 
     // Função para salvar tarefa no localStorage
@@ -62,7 +88,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Função para carregar tarefas do localStorage
     function loadTasks() {
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        tasks.forEach(task => displayTask(task));
+        tasks.forEach(task => {
+            displayTask(task);
+            addTaskToSelect(task); // Adiciona a tarefa à seleção de tarefas ao carregar
+        });
     }
 
     // Função para exibir tarefa sem salvar novamente
@@ -80,6 +109,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         li.appendChild(removeButton);
         subjectList.appendChild(li);
+    }
+
+    // Função para apagar todas as tarefas
+    function clearAllTasks() {
+        subjectList.innerHTML = '';
+        taskSelect.innerHTML = '<option value="" disabled selected>Selecione uma tarefa</option>';
+        localStorage.removeItem('tasks');
     }
 
     // Função para mostrar o alerta de sucesso
