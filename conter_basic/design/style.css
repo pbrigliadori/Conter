@@ -40,13 +40,13 @@ body {
 
 /* Estilo para o título "Conter" */
 #pageTitle {
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: white; /* Ajuste o tamanho conforme necessário */
     position: absolute;
     top: 10px;
     left: 10px;
     margin: 0; /* Remover margem */
-    padding: 0; /* Remover padding */
+    padding: 10px; /* Remover padding */
 }
 
 /* Estilo para o botão "+" */
@@ -214,3 +214,59 @@ body {
 #clearTasksButton:hover {
     transform: scale(1.1); /* Efeito de hover */
 }
+
+.icon {
+    position: absolute;
+    top: 70px;
+    left: 10px; /* Ajuste a posição horizontal */
+    font-size: 30px;
+    color: white; /* Ajuste a cor conforme necessário */
+    cursor: pointer;
+    color: #00d4ff;
+    transition: transform 0.3s ease;
+}
+
+.icon:hover {
+    transform: scale(1.1); /* Efeito de hover */
+}
+
+#tasksModalLabel{
+    color: white;
+}
+
+.full-screen-modal .modal-dialog {
+    max-width: 100vw; /* Ocupar toda a largura da tela */
+    height: 100vh; /* Ocupar toda a altura da tela */
+    margin: 0; /* Remover margem */
+
+    
+    
+}
+
+.full-screen-modal .modal-content {
+    width: 100vw; /* Ocupar toda a largura */
+    height: 95vh; /* Ocupar toda a altura */
+    border-radius: 10px; /* Remover cantos arredondados */
+    background-color: #333333;
+    border: none;
+    
+}
+.full-screen-modal .modal-header {
+    border-bottom: none;
+}
+
+#xzin { 
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    outline: none;
+    transition: background-color 0.3s ease;
+    
+    
+}
+
+#xzin:hover {
+    background-color: rgb(255, 9, 9); /* Escolha a cor que deseja */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}
+

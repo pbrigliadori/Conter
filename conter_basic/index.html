@@ -5,8 +5,8 @@
     <title>Conter</title>
     <link rel="stylesheet" href="design/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preload" href="https://i.postimg.cc/QxPBRZMt/peakpx.jpg" as="image">
-    <link rel="preload" href="https://i.postimg.cc/h4MrHvx0/peakpx-4.jpg" as="image">
 </head>
 <body>
     <div class="container">
@@ -25,7 +25,8 @@
         <div class="row justify-content-center align-items-center" style="height: 80vh;">
             <div class="col-12 text-center">
                 <!-- Área de seleção de tarefas -->
-                <div class="form-group"> 
+                <div class="form-group">
+                    
                     <select id="taskSelect" class="form-control d-inline-block w-auto">
                         <option value="" disabled selected>Selecione uma tarefa</option>
                     </select>
@@ -71,7 +72,33 @@
                 </ul>
             </div>
         </div>
+
+        <div class="icon" data-toggle="modal" data-target="#tasksModal">
+            <i class="fa-solid fa-square-poll-horizontal"></i> 
+        </div>
+
     </div>
+
+   <!-- Modal para exibir todas as tarefas -->
+<div class="modal fade full-screen-modal" id="tasksModal" tabindex="-1" aria-labelledby="tasksModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tasksModalLabel">Todas as Tarefas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="xzin">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="allTasksList" class="list-group">
+                    <!-- Lista de todas as tarefas será inserida aqui -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <!-- Botão para apagar todas as tarefas -->
     <button id="clearTasksButton" class="btn btn-danger">D</button>
     <!-- Scripts do Bootstrap -->

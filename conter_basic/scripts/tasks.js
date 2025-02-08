@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const subjectModal = $('#subjectModal'); // Usando jQuery para manipular o modal
     const taskSelect = document.getElementById('taskSelect'); // Seleção de tarefas
     const clearTasksButton = document.getElementById('clearTasksButton'); // Botão para apagar todas as tarefas
+    const allTasksList = document.getElementById('allTasksList'); // Lista de todas as tarefas
+    const tasksModal = $('#tasksModal'); // Modal para exibir todas as tarefas
 
     // Carregar tarefas salvas do localStorage
     loadTasks();
@@ -19,6 +21,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Adicionar evento de clique ao botão de apagar todas as tarefas
     clearTasksButton.addEventListener('click', clearAllTasks);
+
+    // Adicionar evento de clique ao ícone para abrir o modal de todas as tarefas
+    tasksModal.on('show.bs.modal', function () {
+        loadAllTasks();
+    });
 
     // Função para adicionar tarefa
     function addTask(task) {
@@ -116,6 +123,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
         subjectList.innerHTML = '';
         taskSelect.innerHTML = '<option value="" disabled selected>Selecione uma tarefa</option>';
         localStorage.removeItem('tasks');
+    }
+
+    // Função para carregar todas as tarefas no modal
+    function loadAllTasks() {
+        allTasksList.innerHTML = '';
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.textContent = task;
+            allTasksList.appendChild(li);
+        });
     }
 
     // Função para mostrar o alerta de sucesso
