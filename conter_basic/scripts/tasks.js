@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const clearTasksButton = document.getElementById('clearTasksButton'); // Botão para apagar todas as tarefas
     const allTasksList = document.getElementById('allTasksList'); // Lista de todas as tarefas
     const tasksModal = $('#tasksModal'); // Modal para exibir todas as tarefas
+    const taskDetailsModal = $('#taskDetailsModal'); // Modal para exibir detalhes da tarefa
+    const taskDetailsBody = document.getElementById('taskDetailsBody'); // Corpo do modal de detalhes da tarefa
+
+    // Adicionar tarefa "Tempo Livre" à seleção de tarefas
+    addTaskToSelect('Tempo Livre');
 
     // Carregar tarefas salvas do localStorage
     loadTasks();
@@ -29,7 +34,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Função para adicionar tarefa
     function addTask(task) {
-        if (task.trim() === '') return;
+        if (task.trim() === '' || task === 'Tempo Livre') return;
 
         const li = document.createElement('li');
         li.className = 'list-group-item d-flex justify-content-between align-items-center';
@@ -81,14 +86,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Função para salvar tarefa no localStorage
     function saveTask(task) {
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        tasks.push(task);
+        tasks.push({ name: task, time: 0 });
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
     // Função para deletar tarefa do localStorage
     function deleteTask(task) {
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        tasks = tasks.filter(t => t !== task);
+        tasks = tasks.filter(t => t.name !== task);
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 
@@ -96,8 +101,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function loadTasks() {
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.forEach(task => {
-            displayTask(task);
-            addTaskToSelect(task); // Adiciona a tarefa à seleção de tarefas ao carregar
+            if (task.name && task.time !== undefined) {
+                displayTask(task.name);
+                addTaskToSelect(task.name); // Adiciona a tarefa à seleção de tarefas ao carregar
+            }
         });
     }
 
@@ -122,6 +129,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function clearAllTasks() {
         subjectList.innerHTML = '';
         taskSelect.innerHTML = '<option value="" disabled selected>Selecione uma tarefa</option>';
+        addTaskToSelect('Tempo Livre'); // Adiciona novamente a tarefa "Tempo Livre"
         localStorage.removeItem('tasks');
     }
 
@@ -130,11 +138,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
         allTasksList.innerHTML = '';
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.forEach(task => {
-            const li = document.createElement('li');
-            li.className = 'list-group-item';
-            li.textContent = task;
-            allTasksList.appendChild(li);
+            if (task.name && task.time !== undefined && task.name !== 'Tempo Livre') {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                const span = document.createElement('span');
+                span.className = 'list-group-item-text';
+                span.textContent = `${task.name} - Tempo: ${formatTime(task.time)}`;
+                li.appendChild(span);
+                li.addEventListener('click', () => {
+                    taskDetailsBody.innerHTML = `Tarefa: ${task.name}<br>Tempo total: ${formatTime(task.time)}`;
+                    taskDetailsModal.modal('show');
+                });
+                allTasksList.appendChild(li);
+            }
         });
+    }
+
+    // Função para formatar o tempo em horas, minutos e segundos
+    function formatTime(time) {
+        let hours = Math.floor(time / 3600000);
+        let minutes = Math.floor((time % 3600000) / 60000);
+        let seconds = Math.floor((time % 60000) / 1000);
+        return `${hours}h ${minutes}m ${seconds}s`;
     }
 
     // Função para mostrar o alerta de sucesso

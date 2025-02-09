@@ -270,3 +270,24 @@ body {
     cursor: pointer; /* Muda o cursor para indicar que é clicável */
 }
 
+/* Estilo para os itens da lista de tarefas no modal */
+#allTasksList .list-group-item {
+    background-color: #444444; /* Cor de fundo dos itens */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda */
+    margin-bottom: 10px; /* Espaçamento entre os itens */
+    padding: 15px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+}
+
+#allTasksList .list-group-item:hover {
+    background-color: #555555; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para o texto dos itens da lista */
+#allTasksList .list-group-item-text {
+    font-size: 1.2rem; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+}
+

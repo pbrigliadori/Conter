@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let timerButton = document.getElementById('timerButton');
     let resetButton = document.getElementById('resetButton');
+    let taskSelect = document.getElementById('taskSelect');
     let timerInterval;
     let startTime;
     let elapsedTime = 0;
     let isRunning = false;
+    let currentTask = null;
 
     timerButton.addEventListener('click', () => {
         if (!isRunning) {
@@ -19,6 +21,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     function startTimer() {
+        if (taskSelect.value === "") {
+            $('#selectTaskModal').modal('show');
+            return;
+        }
+        currentTask = taskSelect.value;
         startTime = Date.now() - elapsedTime;
         timerButton.classList.add('running'); // Adiciona a classe 'running'
         updateTimer(); // Atualiza o temporizador imediatamente
@@ -30,6 +37,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         clearInterval(timerInterval);
         elapsedTime = Date.now() - startTime;
         updateTimer(); // Atualiza o temporizador imediatamente
+        if (currentTask !== 'Tempo Livre') {
+            saveTaskTime(currentTask, elapsedTime);
+        }
         isRunning = false;
     }
 
@@ -52,5 +62,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } else {
             timerButton.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }
+    }
+
+    function saveTaskTime(task, time) {
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let taskIndex = tasks.findIndex(t => t.name === task);
+        if (taskIndex !== -1) {
+            tasks[taskIndex].time += time;
+        } else {
+            tasks.push({ name: task, time: time });
+        }
+        localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 });

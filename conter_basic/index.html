@@ -26,7 +26,7 @@
             <div class="col-12 text-center">
                 <!-- Área de seleção de tarefas -->
                 <div class="form-group">
-                    
+
                     <select id="taskSelect" class="form-control d-inline-block w-auto">
                         <option value="" disabled selected>Selecione uma tarefa</option>
                     </select>
@@ -79,25 +79,64 @@
 
     </div>
 
-   <!-- Modal para exibir todas as tarefas -->
-<div class="modal fade full-screen-modal" id="tasksModal" tabindex="-1" aria-labelledby="tasksModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tasksModalLabel">Todas as Tarefas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="xzin">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <ul id="allTasksList" class="list-group">
-                    <!-- Lista de todas as tarefas será inserida aqui -->
-                </ul>
+    <!-- Modal para exibir todas as tarefas -->
+    <div class="modal fade full-screen-modal" id="tasksModal" tabindex="-1" aria-labelledby="tasksModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tasksModalLabel">Todas as Tarefas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="xzin">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="allTasksList" class="list-group">
+                        <!-- Lista de todas as tarefas será inserida aqui -->
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Modal para mensagem de seleção de tarefa -->
+    <div class="modal fade" id="selectTaskModal" tabindex="-1" aria-labelledby="selectTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="selectTaskModalLabel">Aviso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Por favor, selecione uma tarefa antes de iniciar o timer.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para exibir detalhes da tarefa -->
+    <div class="modal fade" id="taskDetailsModal" tabindex="-1" aria-labelledby="taskDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskDetailsModalLabel">Detalhes da Tarefa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="taskDetailsBody">
+                    <!-- Detalhes da tarefa serão inseridos aqui -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Botão para apagar todas as tarefas -->
     <button id="clearTasksButton" class="btn btn-danger">D</button>
