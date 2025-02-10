@@ -103,6 +103,24 @@ body {
     transform: scale(0.95); /* Efeito de pressionado */
 }
 
+#stopButton {
+    margin-top: 20px;
+    background-color: #000000; /* Cor do botão de parar */
+    border: none; /* Remover borda padrão */
+    color: white; /* Cor do texto */
+    outline: none; /* Remover destaque nas bordas */
+    transition: transform 0.1s ease; /* Adiciona uma transição suave */
+}
+#stopButton:focus, 
+#stopButton:active {
+    outline: none;
+    box-shadow: none; /* Remove qualquer sombra aplicada ao foco */
+}
+
+#stopButton:hover {
+    transform: scale(1.1); /* Efeito de hover */
+}
+
 /* Customizações adicionais para responsividade */
 @media (max-width: 768px) {
     #timerButton {
@@ -332,4 +350,65 @@ body {
 
 #taskDetailsModal .modal-title {
     color: #000000; /* Cor do título */
+}
+
+/* Estilo para o modal de confirmação */
+#resetConfirmModal .modal-content {
+    background-color: #f8f9fa; /* Cor de fundo */
+    color: #ff0000; /* Cor do texto */
+    border-radius: 10px; /* Bordas arredondadas */
+    border: none;
+}
+
+#resetConfirmModal .modal-header {
+    border: none; 
+}
+
+#resetConfirmModal .modal-title {
+    color: #ff0000; /* Cor do título */
+}
+
+#resetConfirmModal .modal-footer {
+   border: none;
+}
+
+
+#resetConfirmModal .modal-footer #confirmResetButton {
+    background-color: #ff0000;
+    border: none;
+
+}
+
+#resetConfirmModal .modal-footer #n {
+    background-color: black;
+}
+
+
+/* Estilo para o modal de confirmação */
+#deleteConfirmModal .modal-content {
+    background-color: #f8f9fa; /* Cor de fundo */
+    color: #333; /* Cor do texto */
+    border-radius: 10px; /* Bordas arredondadas */
+    border: none;
+}
+
+#deleteConfirmModal .modal-header {
+   border: none
+}
+
+#deleteConfirmModal .modal-title {
+    color: #ff0000;
+}
+
+#deleteConfirmModal .modal-footer {
+   border: none;
+}
+
+#deleteConfirmModal .modal-footer #confirmDeleteButton {
+    background-color: #ff0000;
+    border: none;
+}
+
+#deleteConfirmModal .modal-footer #n2 {
+    background-color: black;
 }

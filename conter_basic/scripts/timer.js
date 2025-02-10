@@ -1,10 +1,14 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let timerButton = document.getElementById('timerButton');
+    let stopButton = document.getElementById('stopButton');
     let resetButton = document.getElementById('resetButton');
+    let confirmResetButton = document.getElementById('confirmResetButton');
     let taskSelect = document.getElementById('taskSelect');
+
     let timerInterval;
-    let startTime;
-    let elapsedTime = 0;
+    let startTime;         // Momento em que a sessão atual é iniciada
+    let storedTime = 0;    // Tempo total acumulado (obtido do localStorage e atualizado ao pausar)
+    let sessionElapsed = 0; // Tempo da sessão atual (em milissegundos)
     let isRunning = false;
     let currentTask = null;
 
@@ -16,8 +20,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
-    resetButton.addEventListener('click', () => {
+    stopButton.addEventListener('click', () => {
+        if (isRunning) {
+            pauseTimer();
+        }
         resetTimer();
+    });
+
+    resetButton.addEventListener('click', () => {
+        $('#resetConfirmModal').modal('show');
+    });
+
+    confirmResetButton.addEventListener('click', () => {
+        resetTimer();
+        $('#resetConfirmModal').modal('hide');
     });
 
     function startTimer() {
@@ -26,52 +42,80 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return;
         }
         currentTask = taskSelect.value;
-        startTime = Date.now() - elapsedTime;
-        timerButton.classList.add('running'); // Adiciona a classe 'running'
-        updateTimer(); // Atualiza o temporizador imediatamente
+        // Se é o início de uma nova sessão (sessionElapsed === 0), carregamos o total armazenado
+        // Caso contrário, estamos retomando a mesma sessão e não queremos resetar o tempo atual.
+        if (sessionElapsed === 0) {
+            storedTime = getTaskTime(currentTask);
+        }
+        // Inicia ou retoma a contagem: a nova sessão continuará a partir de sessionElapsed
+        startTime = Date.now();
+        timerButton.classList.add('running');
+        timerButton.innerText = "PAUSAR";
         timerInterval = setInterval(updateTimer, 1000);
         isRunning = true;
     }
 
     function pauseTimer() {
+        if (!isRunning) return;
         clearInterval(timerInterval);
-        elapsedTime = Date.now() - startTime;
-        updateTimer(); // Atualiza o temporizador imediatamente
-        if (currentTask !== 'Tempo Livre') {
-            saveTaskTime(currentTask, elapsedTime);
-        }
+        // Calcula o tempo decorrido nesta sessão (desde o último start)
+        let currentSessionTime = Date.now() - startTime;
+        // Acumula esse tempo na sessão atual
+        sessionElapsed += currentSessionTime;
+        // Atualiza o total armazenado (somando o que já havia em storedTime)
+        let newTotal = storedTime + sessionElapsed;
+        saveTaskTime(currentTask, newTotal);
+        timerButton.classList.remove('running');
+        // Exibe no display apenas o tempo desta sessão (para o usuário ver "quanto fez hoje")
+        timerButton.innerText = formatTime(sessionElapsed);
         isRunning = false;
     }
 
     function resetTimer() {
         clearInterval(timerInterval);
-        elapsedTime = 0;
+        // Aqui, resetamos somente os dados da sessão atual;
+        // o tempo total armazenado no localStorage permanece intacto.
+        sessionElapsed = 0;
         timerButton.innerText = 'INICIAR';
-        timerButton.classList.remove('running'); // Remove a classe 'running'
+        timerButton.classList.remove('running');
         isRunning = false;
     }
 
+    // Enquanto o timer estiver rodando, atualiza o display somando o tempo da sessão atual já acumulado e o tempo decorrido desde o último start.
     function updateTimer() {
-        elapsedTime = Date.now() - startTime;
-        let hours = Math.floor(elapsedTime / 3600000);
-        let minutes = Math.floor((elapsedTime % 3600000) / 60000);
-        let seconds = Math.floor((elapsedTime % 60000) / 1000);
-
-        if (hours > 0) {
-            timerButton.innerText = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        } else {
-            timerButton.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        if (isRunning) {
+            let currentSessionTime = sessionElapsed + (Date.now() - startTime);
+            timerButton.innerText = formatTime(currentSessionTime);
         }
     }
 
-    function saveTaskTime(task, time) {
+    // Formata o tempo (em ms) para "HH:MM:SS" ou "MM:SS"
+    function formatTime(ms) {
+        let totalSeconds = Math.floor(ms / 1000);
+        let hours = Math.floor(totalSeconds / 3600);
+        let minutes = Math.floor((totalSeconds % 3600) / 60);
+        let seconds = totalSeconds % 60;
+        if (hours > 0) {
+            return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        } else {
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+    }
+
+    function saveTaskTime(task, totalTime) {
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         let taskIndex = tasks.findIndex(t => t.name === task);
         if (taskIndex !== -1) {
-            tasks[taskIndex].time += time;
+            tasks[taskIndex].time = totalTime;
         } else {
-            tasks.push({ name: task, time: time });
+            tasks.push({ name: task, time: totalTime });
         }
         localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function getTaskTime(task) {
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let foundTask = tasks.find(t => t.name === task);
+        return foundTask ? foundTask.time : 0;
     }
 });

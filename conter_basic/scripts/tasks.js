@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const subjectModal = $('#subjectModal'); // Usando jQuery para manipular o modal
     const taskSelect = document.getElementById('taskSelect'); // Seleção de tarefas
     const clearTasksButton = document.getElementById('clearTasksButton'); // Botão para apagar todas as tarefas
+    const confirmDeleteButton = document.getElementById('confirmDeleteButton'); // Botão de confirmação de exclusão
     const allTasksList = document.getElementById('allTasksList'); // Lista de todas as tarefas
     const tasksModal = $('#tasksModal'); // Modal para exibir todas as tarefas
     const taskDetailsModal = $('#taskDetailsModal'); // Modal para exibir detalhes da tarefa
@@ -25,7 +26,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // Adicionar evento de clique ao botão de apagar todas as tarefas
-    clearTasksButton.addEventListener('click', clearAllTasks);
+    clearTasksButton.addEventListener('click', () => {
+        $('#deleteConfirmModal').modal('show');
+    });
+
+    // Adicionar evento de clique ao botão de confirmação de exclusão
+    confirmDeleteButton.addEventListener('click', () => {
+        clearAllTasks();
+        $('#deleteConfirmModal').modal('hide');
+    });
 
     // Adicionar evento de clique ao ícone para abrir o modal de todas as tarefas
     tasksModal.on('show.bs.modal', function () {
